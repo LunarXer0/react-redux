@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+
+import { createStore } from "redux";
+
+import logo from "./logo.svg";
+import "./App.css";
 
 class App extends Component {
   render() {
@@ -26,3 +29,27 @@ class App extends Component {
 }
 
 export default App;
+
+const defaultState = {
+  welcome: "Hi",
+  otherState: "blah"
+};
+
+const greeting = (state = defaultState, action) => {
+  switch (action.type) {
+    case "GREET_ME":
+      return { ...state, welcome: "Hello V3" };
+    case "GREET_WORLD":
+      return { ...state, welcome: "Hello World" };
+    default:
+      return state;
+  }
+};
+
+const store = createStore(greeting);
+
+store.dispatch({
+  type: "GREET_ME"
+});
+
+console.log(store.getState());
